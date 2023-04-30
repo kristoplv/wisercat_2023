@@ -1,0 +1,213 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+
+
+
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <h5 class="card-title">Pets list <span class="text-muted fw-normal ms-2"></span></h5>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+              <div>
+                <button id="btnThing"class="btn btn-primary" (click)="logOut()"><i class="bx bx-plus me-1"></i> Log out</button>
+            </div>
+            
+                <div>
+                    <button data-bs-toggle="modal" data-bs-target=".add-new" class="btn btn-primary" (click)="onOpenModal(null, 'add')"><i class="bx bx-plus me-1"></i> Add New</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="">
+                <div class="table-responsive">
+                    <table class="table project-list-table table-nowrap align-middle table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="ps-4" style="width: 50px;">
+                                    <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck" /><label class="form-check-label" for="contacusercheck"></label></div>
+                                </th>
+                                <th class="btn-sort" (click)="sortByID()" scope="col">ID</th>
+                                <th class="btn-sort" (click)="sortByName()" scope="col">Name</th>
+                                <th class="btn-sort" (click)="sortByCode()" scope="col">Code</th>
+                                <th class="btn-sort" (click)="sortByType()" scope="col">Type</th>
+                                <th class="btn-sort" (click)="sortByColor()" scope="col">Color</th>
+                                <th class="btn-sort" (click)="sortByOrigin()" scope="col">Origin</th>
+                                <th  scope="col" style="width: 200px;">Action</th>
+                            </tr>
+                        </thead>
+                        <div id="mainCont"></div>
+                        <tbody *ngFor="let pet of pets">
+                            <tr>
+                                <th scope="row" class="ps-4">
+                                    <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck9" /><label class="form-check-label" for="contacusercheck9"></label></div>
+                                </th>
+                                <td><a href="#" class="text-body">{{pet.id}}</a></td>
+                                <td><span class="badge badge-soft-success mb-0">{{pet.name}}</span></td>
+                                <td>{{pet.code}}</td>
+                                <div class="form-group">
+                        
+                                  <select disabled id="type">
+                                    <option *ngFor="let type of types" id="{{type.id}}" [selected]="type.id === pet?.type" value="{{type.id}}">{{type.typename}}</option>
+                                  </select>
+                                </div>
+                                <td>{{pet.color}}</td>
+                                <td>{{pet.origin}}</td>
+                                <td>
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-item">
+                                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary" (click)="onOpenModal(pet, 'edit');OriginAndType(pet)"><i class="bx bx-pencil font-size-18"></i></a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger" (click)="onOpenModal(pet, 'delete')"><i class="bx bx-trash-alt font-size-18"></i></a>
+                                        </li>
+                                        
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                      
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row g-0 align-items-center pb-4">
+        <div class="col-sm-6">
+            <div><p class="mb-sm-0">Showing animals for account {{ownerName}}</p></div>
+        </div>
+        
+    </div>
+</div>
+
+<!--EDIT pets-->
+<div class="modal fade" id="editPets" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit pet Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #editForm="ngForm">
+          <input type="hidden" ngModel="{{editPet?.id}}" name="id"/>
+          <input type="hidden" ngModel="{{editPet?.code}}" name="code"/>
+          <div class="form-group" hidden>
+            <label for="owner" class="col-form-label">Owner ID: </label>
+            <textarea ngModel class="form-control" name="owner" id="owner" disabled></textarea>
+          </div>
+          <div class="form-group">
+            <label for="name" class="col-form-label">Name: </label>
+            <textarea ngModel="{{editPet?.name}}" name="name" class="form-control" id="message-text"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="type" class="col-form-label">Type:</label>
+            <br>
+            <select id="type" (change)="onSelectedType($event)">
+              <option id="{{type.id}}" [selected]="type.id === editPet?.type" *ngFor="let type of types"  value="{{type.id}}">{{type.typename}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="color" class="col-form-label">Color: </label>
+            <textarea ngModel="{{editPet?.color}}"name="color"class="form-control" id="message-text"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="origin" class="col-form-label">Origin: </label>
+            <br>
+            <select name="origin" id="origin" (change)="onSelected($event)">
+              <option *ngFor="let origin of origins" [selected]="origin.origin === editPet?.origin" value="{{origin.origin}}">{{origin.origin}}</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button (click)="onUpdatePet(editForm?.value)" type="button" class="btn btn-primary">Save and exit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- add pets-->
+<div class="modal fade" id="addPets" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add a new pet</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addForm="ngForm" (ngSubmit)="onAddPet(addForm)">
+          <div class="form-group" hidden>
+            <label for="id" class="col-form-label">ID: </label>
+            <input type="text" ngModel class="form-control" name="id" id="id" disabled>
+          </div>
+          <div class="form-group">
+            <label for="name" class="col-form-label">Name: </label>
+            <textarea class="form-control" ngModel required name="name" id="name"></textarea>
+            
+          </div>
+          <div class="form-group" hidden>
+            <label for="code" class="col-form-label">Code: </label>
+            <textarea class="form-control" ngModel name="code" id="code" disabled></textarea>
+          </div>
+          <div class="form-group">
+            <label for="type" class="col-form-label" required>Type:</label>
+            <br>
+            <select id="type" (change)="onSelectedType($event)">
+              <option id="{{type.typename}}" *ngFor="let type of types" value="{{type.id}}">{{type.typename}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="color" class="col-form-label">Color: </label>
+            <textarea class="form-control" ngModel required name="color"id="color"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="origin" class="col-form-label">Origin: </label>
+            <br>
+            <select id="origin" (change)="onSelected($event)">
+              <option  *ngFor="let origin of origins" value="{{origin.origin}}">{{origin.origin}}</option>
+            </select>
+          </div>
+          <div class="form-group" hidden>
+            <label for="owner" class="col-form-label">Owner ID: </label>
+            <textarea ngModel class="form-control" ngModel name="owner" id="owner" disabled></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="add_pet_form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save and exit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- delete pets-->
+<div class="modal" tabindex="-1" role="dialog" id="deletePets">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete pet</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete pet <b>{{deletePet?.name}}?</b></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button (click)="onDeletePet(deletePet.id)" type="button" class="btn btn-primary">Delete and save</button>
+      </div>
+    </div>
+  </div>
+</div>

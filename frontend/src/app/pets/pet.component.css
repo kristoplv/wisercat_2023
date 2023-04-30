@@ -1,0 +1,16 @@
+.btn-sort{
+    cursor: pointer;
+}
+.btn-sort:hover{
+    background-color: rgb(234, 233, 233);
+}
+
+#mainCont{
+    width: 0;
+    height:0;
+}
+#btnThing{
+    margin-right:10px;
+    background-color: red;
+    border-color: darkred;
+}
