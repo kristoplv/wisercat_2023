@@ -6,6 +6,7 @@ import {Types } from "./Types";
 import { Origins } from "./Origins";
 import { environment } from "src/environments/environment";
 import { Input } from "./Login";
+import { Colors } from "./colors/Colors";
 
 @Injectable({
     providedIn: "root"
@@ -43,6 +44,10 @@ export class PetsService{
 
     public getUser(username:string, password:string):Observable<Input>{
         return this.http.get<Input>(`${this.apiServerURL}/Account/findone/${username}&${password}`);
+    }
+
+    public getColors():Observable<Colors[]>{
+        return this.http.get<Colors[]>(`${this.apiServerURL}/Color/all`);
     }
 
     

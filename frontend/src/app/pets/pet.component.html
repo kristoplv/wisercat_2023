@@ -62,7 +62,7 @@
                                 <td>
                                     <ul class="list-inline mb-0">
                                         <li class="list-inline-item">
-                                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary" (click)="onOpenModal(pet, 'edit');OriginAndType(pet)"><i class="bx bx-pencil font-size-18"></i></a>
+                                            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary" (click)="onOpenModal(pet, 'edit');OriginAndTypeAndColor(pet)"><i class="bx bx-pencil font-size-18"></i></a>
                                         </li>
                                         <li class="list-inline-item">
                                             <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger" (click)="onOpenModal(pet, 'delete')"><i class="bx bx-trash-alt font-size-18"></i></a>
@@ -117,7 +117,10 @@
           </div>
           <div class="form-group">
             <label for="color" class="col-form-label">Color: </label>
-            <textarea ngModel="{{editPet?.color}}"name="color"class="form-control" id="message-text"></textarea>
+            <br>
+            <select id="color" (change)="onSelectedColor($event)">
+              <option id="{{color.id}}" [selected]="color.color === editPet?.color" *ngFor="let color of colors"  value="{{color.color}}">{{color.color}}</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="origin" class="col-form-label">Origin: </label>
@@ -169,7 +172,10 @@
           </div>
           <div class="form-group">
             <label for="color" class="col-form-label">Color: </label>
-            <textarea class="form-control" ngModel required name="color"id="color"></textarea>
+            <br>
+            <select id="color" (change)="onSelectedColor($event)">
+              <option *ngFor="let color of colors"  value="{{color.color}}">{{color.color}}</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="origin" class="col-form-label">Origin: </label>

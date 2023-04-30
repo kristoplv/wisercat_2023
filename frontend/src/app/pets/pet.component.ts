@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { Pets } from "../Pets";
 import { Types } from '../Types';
 import { Origins } from '../Origins';
+import { Colors } from '../colors/Colors';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginComponent } from '../login.component';
 
 @Component({
   selector: 'app-root',
@@ -20,8 +20,10 @@ export class PetComponent implements OnInit{
   public deletePet: Pets;
   public types: Types[];
   public origins: Origins[];
+  public colors: Colors[];
   public selectedOrigin:any;
   public selectedType:any;
+  public selectedColor:any;
   public ownerID:any;
   public ownerName:string;
   constructor(private petsService: PetsService, private router:Router){}
@@ -29,6 +31,7 @@ export class PetComponent implements OnInit{
   ngOnInit(): void {
       this.getTypes();
       this.getOrigins();
+      this.getColors();
       if(sessionStorage.getItem("id")){
         this.ownerName = sessionStorage.getItem("username")
         this.ownerID = sessionStorage.getItem("id");
@@ -79,12 +82,24 @@ export class PetComponent implements OnInit{
     this.selectedType = event.target.value;
     console.log(this.selectedType);
   }
+  // Selection for type
+  public onSelectedColor(event:any):void{
+    this.selectedColor = event.target.value;
+    console.log(this.selectedColor);
+  }
 
 
   // Getting pet type dropdown bar options
   public getTypes():void{
     this.petsService.getTypes().subscribe(
       (response:Types[])=>{this.types = response;},
+      (error:HttpErrorResponse)=>{alert(error.message);}
+    )
+  }
+ // Getting pet color dropdown bar options
+  public getColors():void{
+    this.petsService.getColors().subscribe(
+      (response:Colors[])=>{this.colors = response;},
       (error:HttpErrorResponse)=>{alert(error.message);}
     )
   }
@@ -123,8 +138,8 @@ export class PetComponent implements OnInit{
   public onAddPet(addForm: NgForm):void{
     addForm.value.type = this.selectedType;
     addForm.value.origin = this.selectedOrigin;
+    addForm.value.color = this.selectedColor;
     addForm.value.owner = parseInt(this.ownerID);
-    console.log(addForm.value);
     document.getElementById("add_pet_form").click();
     if(addForm.value.name ===""){
       alert("please add a name :)");
@@ -159,9 +174,10 @@ export class PetComponent implements OnInit{
 
 
   // Handles pre-selected pet origin and types
-  public OriginAndType(pet:Pets):void{
+  public OriginAndTypeAndColor(pet:Pets):void{
     this.selectedOrigin = pet.origin;
     this.selectedType = pet.type;
+    this.selectedColor = pet.color;
   };
 
   // Edit pet
@@ -169,6 +185,8 @@ export class PetComponent implements OnInit{
     pets.owner = parseInt(this.ownerID);
     pets.origin = this.selectedOrigin;
     pets.type = this.selectedType;
+    
+    pets.color = this.selectedColor;
     console.log(pets);
     if(pets.name ===""){ //FE form validation *TO BE MADE BETTER*
       alert("please add a name :)");
@@ -203,6 +221,7 @@ export class PetComponent implements OnInit{
       btn.setAttribute("data-target", "#addPets");
       this.selectedOrigin = "Estonia";
       this.selectedType = 1;
+      this.selectedColor = "black";
     }
     if(mode=== "edit"){
       this.editPet = pet
