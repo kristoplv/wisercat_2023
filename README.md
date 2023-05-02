@@ -20,7 +20,7 @@ To launch front end:
 
 ## Documentation
 
-A more detailed documentation can be found in both the [backend](backend/) and [frontend](frontend/) folder.
+A more detailed documentation in estonian can be found in both the [backend](backend/) and [frontend](frontend/) folder.
 
 ### Overview
 Time elapsed for completion of TODO and optional TODO:
@@ -51,7 +51,7 @@ Frontendi käivitamine:
 
 ## Dokumentatsioon
 
-Detailsema ülevaate programmist leiab nii [backend](backend/) kui ka [frontend](frontend/) kaustades.
+Detailsema eestikeelse ülevaate programmist leiab nii [backend](backend/) kui ka [frontend](frontend/) kaustades.
 
 ### Ülevaade
 Ajakulu testülesandes märgitud TODO ja optional TODO lahendamiseks:
