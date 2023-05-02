@@ -16,7 +16,8 @@ To launch back end:
 
 To launch front end:
 1. Navigate to frontend folder
-2. Open console in frontend folder and type "ng serve".
+2. Open console in frontend folder and type "npm i".
+3. Open console in frontend folder and type "ng serve".
 
 ## Documentation
 
@@ -47,7 +48,8 @@ Backendi käivitamine:
 
 Frontendi käivitamine:
 1. Liigu frontend kausta.
-2. Olles backendi kasutas, ava konsool ja kirjuta "ng serve"
+2. Olles backendi kasutas, ava konsool ja kirjuta "npm i"
+3. Olles backendi kasutas, ava konsool ja kirjuta "ng serve"
 
 ## Dokumentatsioon
 
