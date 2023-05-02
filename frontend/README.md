@@ -2,15 +2,13 @@
 
 ## LOGIN INFO 
 Andmebaasi on loodud 3 kasutajat. Nendeks on:
-1.
+
 *username = root
 *password = root
 
-2. 
 *username = root1
 *password = root1
 
-3.
 *username = root2
 *password = root2
 
