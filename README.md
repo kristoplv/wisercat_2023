@@ -7,6 +7,8 @@ Used technologies:
 * Bootstrap ver 5.3
 * Liquibase ver 4.21. 1,
 * H2 database ver 2.1.214
+* npm ver 9.6.5
+* Node.js ver 20.0.0
 
 ## How to launch
 Backend and front end are two different projects in this same repository.
