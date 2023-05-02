@@ -4,6 +4,7 @@ Used technologies:
 * Spring boot ver 3.0.6,
 * Java JDK ver 20,
 * Angular ver 15,
+* Bootstrap ver 5.3
 * Liquibase ver 4.21. 1,
 * H2 database ver 2.1.214
 
